@@ -1,5 +1,7 @@
 package chennai_craft_backend.controller;
 
+import chennai_craft_backend.dto.AuthResponse;
+import chennai_craft_backend.dto.LoginRequest;
 import chennai_craft_backend.dto.RegisterRequest;
 import chennai_craft_backend.dto.UserResponse;
 import chennai_craft_backend.service.AuthService;
@@ -22,5 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
