@@ -45,6 +45,19 @@ public class ProductService {
                 .toList();
     }
 
+    public List<ProductResponse> listPublic(String q) {
+        String term = (q == null) ? "" : q.trim();
+        return productRepository.searchInStock(term).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    public ProductResponse getPublic(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return toResponse(product);
+    }
+
     private SellerProfile getApprovedSeller(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
