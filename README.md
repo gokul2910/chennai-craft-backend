@@ -2,7 +2,7 @@
 
 REST API for a Chennai-only marketplace where local makers sell handmade products. Customers can browse and order, sellers manage their own shop's products and orders, and an admin approves sellers.
 
-**Status:** backend MVP is complete. React frontend, automated tests and deployment are planned.
+**Status:** backend is complete and unit-tested. React frontend and deployment are planned.
 
 ## Features
 
@@ -44,6 +44,8 @@ REST API for a Chennai-only marketplace where local makers sell handmade product
 | GET | `/api/admin/sellers?status=PENDING` | Admin | List seller applications |
 | POST | `/api/admin/sellers/{id}/approve` | Admin | Approve a seller |
 | POST | `/api/admin/sellers/{id}/reject` | Admin | Reject a seller |
+| PUT | `/api/seller/products/{id}` | Seller | Edit my product |
+| DELETE | `/api/seller/products/{id}` | Seller | Delete my product (only if it has no orders) |
 
 Send the token as `Authorization: Bearer <token>`.
 
@@ -62,6 +64,12 @@ Send the token as `Authorization: Bearer <token>`.
 - **Price snapshot.** Each order line stores the product name and unit price at purchase time.
 - **Roles are read from the database on every request**, so a role change (for example seller approval) applies immediately.
 - A seller cannot buy their own product.
+
+## Running tests
+
+```
+./mvnw test "-Dtest=OrderServiceTest,SellerOrderServiceTest"
+```
 
 ## Getting started
 
@@ -139,10 +147,10 @@ src/main/java/chennai_craft_backend
 
 ## Roadmap
 
-- [ ] Product edit and delete for sellers
-- [ ] CORS configuration
-- [ ] Global error handling
-- [ ] Unit and integration tests
+- [x] Product edit and delete for sellers
+- [x] CORS configuration
+- [x] Global error handling
+- [x] Unit and integration tests
 - [ ] Pagination for product list
 - [ ] Customer-side order cancel
 - [ ] React frontend
